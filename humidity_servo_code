@@ -1,0 +1,43 @@
+#include <dht.h>
+#include <Servo.h>
+
+Servo myservo;  
+
+int pos = 0;   
+
+dht DHT;
+
+#define DHT11_PIN 7
+
+void setup(){
+  Serial.begin(9600);
+  myservo.attach(9);
+}
+
+void loop()
+{
+  
+  //myservo.write(0);
+  int chk = DHT.read11(DHT11_PIN);
+  Serial.print("Temperature = ");
+  Serial.println(DHT.temperature);
+  Serial.print("Humidity = ");
+  int hu = DHT.humidity;
+  Serial.println(hu);
+  delay(1000);
+  if (hu>55){
+     myservo.write(90);
+
+     delay(1000);}
+                   
+      
+     if (DHT.humidity<55){ 
+        myservo.write(0);
+             delay(1000);             
+                    
+                            
+    }
+}
+
+
+
